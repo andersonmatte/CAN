@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CustomBottomNav" parent="Widget.Design.BottomNavigationView">
+        <item name="android:background">#FFFFFF</item>
+        <item name="itemTextColor">@color/colorPrimaryDark</item>
+        <item name="itemIconTint">@color/colorPrimaryDark</item>
+    </style>
+
 </resources>
