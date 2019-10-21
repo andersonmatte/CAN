@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-tools:context=".atividade.MeusProjetosActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".atividade.MeusProjetosActivity">
 
-<item
-    android:id="@+id/adicionar"
-    android:title="Adicionar"
-    app:showAsAction="always"/>
-    <!--android:icon="@drawable/baseline_add_white_18dp" -->
+    <item
+        android:id="@+id/adicionar"
+        android:icon="@drawable/baseline_person_white_36"
+        android:title="@string/Login"
+        app:showAsAction="always" />
+
 
 </menu>

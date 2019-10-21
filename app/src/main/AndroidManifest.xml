@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.can">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,9 @@
         android:roundIcon="@drawable/can"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.JogadoresActivity"></activity>
+        <activity android:name=".activity.SignupActivity"></activity>
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.JogadoresActivity" />
         <activity android:name=".activity.JogosActivity" />
         <activity android:name=".activity.ClubeActivity" />
         <activity android:name=".activity.HomeActivity" />
