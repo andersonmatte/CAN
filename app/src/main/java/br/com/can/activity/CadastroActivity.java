@@ -14,7 +14,7 @@ import br.com.can.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SignupActivity extends AppCompatActivity {
+public class CadastroActivity extends AppCompatActivity {
 
     @BindView(R.id.input_name)
     EditText nome;
@@ -36,7 +36,7 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.activity_cadastro);
         ButterKnife.bind(this);
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +62,7 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
         signupButton.setEnabled(false);
-        final ProgressDialog progressDialog = new ProgressDialog(SignupActivity.this,
+        final ProgressDialog progressDialog = new ProgressDialog(CadastroActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage(getString(R.string.criando_conta));

@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final int REQUEST_SIGNUP = 0;
+    private static final int REQUEST = 0;
 
     @BindView(R.id.input_email)
     EditText email;
@@ -24,8 +24,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText senha;
     @BindView(R.id.btn_login)
     Button botaoLogin;
-    @BindView(R.id.link_signup)
-    TextView singupLink;
+    @BindView(R.id.link_cadastro)
+    TextView cadastro;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,12 +38,16 @@ public class LoginActivity extends AppCompatActivity {
                 login();
             }
         });
-        singupLink.setOnClickListener(new View.OnClickListener() {
+        redirecionaCadastro();
+    }
+
+    private void redirecionaCadastro() {
+        cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
+                Intent intent = new Intent(getApplicationContext(), CadastroActivity.class);
+                startActivityForResult(intent, REQUEST);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
@@ -78,10 +82,9 @@ public class LoginActivity extends AppCompatActivity {
                 }, 3000);
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SIGNUP) {
+        if (requestCode == REQUEST) {
             if (resultCode == RESULT_OK) {
                 // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically

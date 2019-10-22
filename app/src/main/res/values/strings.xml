@@ -4,7 +4,7 @@
     <string name="jogadores">Jogadores</string>
     <string name="jogos">Jogos</string>
     <string name="Login">Adicionar</string>
-    <string name="nova_conta">Ainda não tem conta? Crie uma.</string>
+    <string name="nova_conta">Ainda não tem uma conta? Crie uma.</string>
     <string name="login">Login</string>
     <string name="senha">Senha</string>
     <string name="email">Email</string>
@@ -13,4 +13,7 @@
     <string name="autenticando">Autenticando...</string>
     <string name="login_invalido">Login inválido!</string>
     <string name="criando_conta">Criando conta...</string>
+    <string name="create_account">Criar Conta</string>
+    <string name="historia">História</string>
+    <string name="contatos">Contatos</string>
 </resources>

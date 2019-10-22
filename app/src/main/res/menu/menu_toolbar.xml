@@ -10,5 +10,4 @@
         android:title="@string/Login"
         app:showAsAction="always" />
 
-
 </menu>
