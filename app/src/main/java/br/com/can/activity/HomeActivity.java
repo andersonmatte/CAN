@@ -53,7 +53,9 @@ public class HomeActivity extends AppCompatActivityBase {
         this.loadPagina(URL_FACEBOOK_CAN);
     }
 
-    // Carrega a URL definida na entrada do APP ou digitada pelo usuário.
+    /**
+     * Carrega a URL definida na entrada do APP ou digitada pelo usuário.
+     */
     public void loadPagina(String url) {
         WebSettings webSetting = webView.getSettings();
         webSetting.setBuiltInZoomControls(true);
@@ -71,6 +73,9 @@ public class HomeActivity extends AppCompatActivityBase {
         return super.onKeyDown(keyCode, event);
     }
 
+    /**
+     * Cria a webview para exibição da página do Facebook do Clube.
+     */
     public class WebViewClient extends android.webkit.WebViewClient {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {

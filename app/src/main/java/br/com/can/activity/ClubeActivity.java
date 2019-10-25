@@ -24,10 +24,13 @@ public class ClubeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clube);
         ButterKnife.bind(this);
-        redirecionaHistorico();
-        redirecionaContatos();
+        this.redirecionaHistoria();
+        this.redirecionaContatos();
     }
 
+    /**
+     * Redirecionamento para a tela de Contatos do Clube.
+     */
     private void redirecionaContatos() {
         contatos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,7 +43,10 @@ public class ClubeActivity extends AppCompatActivity {
         });
     }
 
-    private void redirecionaHistorico() {
+    /**
+     * Redirecionamento para a tela de Historia do Clube.
+     */
+    private void redirecionaHistoria() {
         historia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -31,8 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
         ButterKnife.bind(this);
-        botaoLogin.setOnClickListener(new View.OnClickListener() {
+        this.botaoLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 login();
@@ -41,6 +42,9 @@ public class LoginActivity extends AppCompatActivity {
         redirecionaCadastro();
     }
 
+    /**
+     * redireciona o usuário para a craiação de um novo retgistro de usuário no APP
+     */
     private void redirecionaCadastro() {
         cadastro.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,9 +58,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Funcionamento do Login.
+     */
     public void login() {
         if (!validarLogin()) {
-            onLoginFailed();
+            loginFalha();
             return;
         }
         botaoLogin.setEnabled(false);
@@ -74,9 +81,9 @@ public class LoginActivity extends AppCompatActivity {
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onLoginSuccess or onLoginFailed
-                        onLoginSuccess();
-                        // onLoginFailed();
+                        // On complete call either loginSucesso or loginFalha
+                        loginSucesso();
+                        // loginFalha();
                         progressDialog.dismiss();
                     }
                 }, 3000);
@@ -86,48 +93,55 @@ public class LoginActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST) {
             if (resultCode == RESULT_OK) {
-                // TODO: Implement successful signup logic here
+                // TODO: Implement successful novoCadastro logic here
                 // By default we just finish the Activity and log them in automatically
                 this.finish();
             }
         }
     }
 
-    public void onLoginSuccess() {
-        botaoLogin.setEnabled(true);
+    public void loginSucesso() {
+        this.botaoLogin.setEnabled(true);
         finish();
     }
 
-    public void onLoginFailed() {
+    public void loginFalha() {
         Toast.makeText(getBaseContext(), getString(R.string.login_invalido), Toast.LENGTH_LONG).show();
-        botaoLogin.setEnabled(true);
+        this.botaoLogin.setEnabled(true);
     }
 
+    /**
+     * Validação inicial do login, validando apenas os dados informados pelo usuário ainda sem fazer a consistência doas dados na API/BD.
+     */
     public boolean validarLogin() {
         boolean valid = true;
-        String email = this.email.getText().toString();
-        String password = senha.getText().toString();
-        valid = validarEmail(valid, email);
-        valid = validarSenha(valid, password);
+        valid = validarEmail(valid);
+        valid = validarSenha(valid);
         return valid;
     }
 
-    private boolean validarSenha(boolean valid, String password) {
-        if (password.isEmpty() || password.length() < 5 || password.length() > 6) {
-            senha.setError(getString(R.string.senha_invalida));
-            valid = false;
-        } else {
-            senha.setError(null);
-        }
-        return valid;
-    }
-
-    private boolean validarEmail(boolean valid, String email) {
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+    /**
+     * Valida se o email informado pelo usuário é um email válido.
+     */
+    private boolean validarEmail(boolean valid) {
+        if (this.email.getText().toString().isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(this.email.getText().toString()).matches()) {
             this.email.setError(getString(R.string.email_invalido));
             valid = false;
         } else {
             this.email.setError(null);
+        }
+        return valid;
+    }
+
+    /**
+     * Valida se a senha informada pelo usuário é um númerico de tamnho seis.
+     */
+    private boolean validarSenha(boolean valid) {
+        if (this.senha.getText().toString().length() != 6) {
+            this.senha.setError(getString(R.string.seis_numericos));
+            valid = false;
+        } else {
+            this.senha.setError(null);
         }
         return valid;
     }

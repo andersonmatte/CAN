@@ -18,18 +18,14 @@ public class CadastroActivity extends AppCompatActivity {
 
     @BindView(R.id.input_name)
     EditText nome;
-    @BindView(R.id.input_address)
-    EditText endereco;
     @BindView(R.id.input_email)
     EditText email;
-    @BindView(R.id.input_mobile)
-    EditText telefone;
     @BindView(R.id.input_password)
     EditText senha;
     @BindView(R.id.input_reEnterPassword)
     EditText repetirSenha;
     @BindView(R.id.btn_signup)
-    Button signupButton;
+    Button botaoCadastrar;
     @BindView(R.id.link_login)
     TextView loginLink;
 
@@ -37,17 +33,17 @@ public class CadastroActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
+        getSupportActionBar().hide();
         ButterKnife.bind(this);
-        signupButton.setOnClickListener(new View.OnClickListener() {
+        botaoCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                signup();
+                novoCadastro();
             }
         });
         loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Finish the registration screen and return to the Login activity
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -56,102 +52,104 @@ public class CadastroActivity extends AppCompatActivity {
         });
     }
 
-    public void signup() {
-        if (!validarCadastro()) {
-            onSignupFailed();
+    /**
+     * Novo cadastro de usuário.
+     */
+    public void novoCadastro() {
+        if (!this.validarCadastro()) {
+            cadastroComFalha();
             return;
         }
-        signupButton.setEnabled(false);
+        botaoCadastrar.setEnabled(false);
         final ProgressDialog progressDialog = new ProgressDialog(CadastroActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage(getString(R.string.criando_conta));
         progressDialog.show();
         String name = nome.getText().toString();
-        String address = endereco.getText().toString();
         String email = this.email.getText().toString();
-        String mobile = telefone.getText().toString();
         String password = senha.getText().toString();
         String reEnterPassword = repetirSenha.getText().toString();
 
-        // TODO: Implement your own signup logic here.
+        // TODO: Implement your own novoCadastro logic here.
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
-                        // On complete call either onSignupSuccess or onSignupFailed
+                        // On complete call either cadastroComSucesso or cadastroComFalha
                         // depending on success
-                        onSignupSuccess();
-                        // onSignupFailed();
+                        cadastroComSucesso();
+                        // cadastroComFalha();
                         progressDialog.dismiss();
                     }
                 }, 3000);
     }
 
-
-    public void onSignupSuccess() {
-        signupButton.setEnabled(true);
+    public void cadastroComSucesso() {
+        botaoCadastrar.setEnabled(true);
         setResult(RESULT_OK, null);
         finish();
     }
 
-    public void onSignupFailed() {
+    public void cadastroComFalha() {
         Toast.makeText(getBaseContext(), getString(R.string.login_invalido), Toast.LENGTH_LONG).show();
-        signupButton.setEnabled(true);
+        botaoCadastrar.setEnabled(true);
     }
 
+    /**
+     * Validações cadastrais dos dado informados na tela pelo usuário.
+     */
     public boolean validarCadastro() {
         boolean valid = true;
-        String name = nome.getText().toString();
-        String address = endereco.getText().toString();
-        String email = this.email.getText().toString();
-        String mobile = telefone.getText().toString();
-        String password = senha.getText().toString();
-        String reEnterPassword = repetirSenha.getText().toString();
+        valid = this.isValidNome(valid);
+        valid = this.isValidEmail(valid);
+        valid = this.isValidSenha(valid);
+        return valid;
+    }
 
-        if (name.isEmpty() || name.length() < 3) {
-            nome.setError("at least 3 characters");
+    /**
+     * Valida se o nome informado pelo usuário é maior que três caracteres.
+     */
+    private boolean isValidNome(boolean valid) {
+        if (this.nome.getText().toString().isEmpty() || this.nome.getText().toString().length() < 3) {
+            this.nome.setError(getString(R.string.tres_caracteres));
             valid = false;
         } else {
-            nome.setError(null);
+            this.nome.setError(null);
         }
+        return valid;
+    }
 
-        if (address.isEmpty()) {
-            endereco.setError("Enter Valid Address");
-            valid = false;
-        } else {
-            endereco.setError(null);
-        }
-
-
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            this.email.setError("enter a valid email address");
+    /**
+     * Valida se o email informado pelo usuário é um email válido.
+     */
+    private boolean isValidEmail(boolean valid) {
+        if (this.email.getText().toString().isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(this.email.getText().toString()).matches()) {
+            this.email.setError(getString(R.string.email_valido));
             valid = false;
         } else {
             this.email.setError(null);
         }
+        return valid;
+    }
 
-        if (mobile.isEmpty() || mobile.length() != 10) {
-            telefone.setError("Enter Valid Mobile Number");
+    /**
+     * Valida se a senha informada pelo usuário é um númerico de tamnho seis e se a senha foi confirmada no campo de repetição de senha.
+     */
+    private boolean isValidSenha(boolean valid) {
+        if (this.senha.getText().toString().length() != 6) {
+            this.senha.setError(getString(R.string.seis_numericos));
             valid = false;
         } else {
-            telefone.setError(null);
+            this.senha.setError(null);
         }
 
-        if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            senha.setError("between 4 and 10 alphanumeric characters");
+        if (!this.repetirSenha.getText().toString().equals(this.senha.getText().toString())) {
+            this.repetirSenha.setError(getString(R.string.senha_nao_confere));
             valid = false;
         } else {
-            senha.setError(null);
+            this.repetirSenha.setError(null);
         }
-
-        if (reEnterPassword.isEmpty() || reEnterPassword.length() < 4 || reEnterPassword.length() > 10 || !(reEnterPassword.equals(password))) {
-            repetirSenha.setError("Password Do not match");
-            valid = false;
-        } else {
-            repetirSenha.setError(null);
-        }
-
         return valid;
     }
 
