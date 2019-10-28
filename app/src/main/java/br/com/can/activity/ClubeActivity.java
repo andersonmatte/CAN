@@ -23,6 +23,7 @@ public class ClubeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clube);
+        getSupportActionBar().hide();
         ButterKnife.bind(this);
         this.redirecionaHistoria();
         this.redirecionaContatos();

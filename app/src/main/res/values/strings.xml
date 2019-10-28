@@ -15,6 +15,9 @@
     <string name="criando_conta">Criando conta...</string>
     <string name="create_account">Criar Conta</string>
     <string name="historia">História</string>
+    <string name="historia_conteudo">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.</string>
+    <string name="historia_conteudo_2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.</string>
+    <string name="historia_conteudo_3">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.</string>
     <string name="contatos">Contatos</string>
     <string name="nome">Nome</string>
     <string name="repetirSenha">Confirmar Senha</string>
@@ -23,4 +26,7 @@
     <string name="email_valido">Digite um endereço de e-mail válido</string>
     <string name="seis_numericos">Informe 6 caracteres numéricos</string>
     <string name="senha_nao_confere">Senha não confere</string>
+    <string name="nome_estadio">Estádio Francisco Rosales</string>
+    <string name="endereco_logradouro">Endereço: Rua Nicolau Frederes, 185 - Centro</string>
+    <string name="endereco_cidade">Cidade: Barra do Ribeiro - RS</string>
 </resources>
