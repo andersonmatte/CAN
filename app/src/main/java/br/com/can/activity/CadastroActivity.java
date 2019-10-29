@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,7 +17,7 @@ import br.com.can.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CadastroActivity extends AppCompatActivity {
+public class CadastroActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     @BindView(R.id.input_name)
     EditText nome;
@@ -50,6 +53,11 @@ public class CadastroActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
+        Spinner spinner = (Spinner) findViewById(R.id.perfis);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.perfis, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
     }
 
     /**
@@ -151,6 +159,14 @@ public class CadastroActivity extends AppCompatActivity {
             this.repetirSenha.setError(null);
         }
         return valid;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int position,long id) {
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
     }
 
 }

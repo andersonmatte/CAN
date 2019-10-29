@@ -29,4 +29,19 @@
     <string name="nome_estadio">Estádio Francisco Rosales</string>
     <string name="endereco_logradouro">Endereço: Rua Nicolau Frederes, 185 - Centro</string>
     <string name="endereco_cidade">Cidade: Barra do Ribeiro - RS</string>
+    <string-array name="perfis">
+        <item>Selecione o seu perfil</item>
+        <item>Torcedor</item>
+        <item>Jogador</item>
+        <item>Administrador</item>
+    </string-array>
+    <string name="copy_right" translatable="false">Copyrights © %1$d</string>
+    <string name="texto_contatos" formatted="true">
+        <ul>
+        <li>Clube Atlético Nacional</li>\n
+        <li>Estádio Francisco Rosales</li>\n
+        <li>Rua Nicolau Frederes, 185 - Centro</li>\n
+        <li>Barra do Ribeiro - RS</li>
+        </ul>
+    </string>
 </resources>
