@@ -1,5 +1,6 @@
 package br.com.can.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -13,4 +14,13 @@ public class HistoriaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_historia);
         getSupportActionBar().hide();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
 }

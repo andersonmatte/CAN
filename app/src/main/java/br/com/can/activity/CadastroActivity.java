@@ -169,4 +169,12 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
     public void onNothingSelected(AdapterView<?> arg0) {
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, HomeActivity.class);
+        startActivity(intent);
+        this.finish();
+    }
+
 }
