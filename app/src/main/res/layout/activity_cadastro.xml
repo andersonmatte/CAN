@@ -8,13 +8,13 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical" >
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="140dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/colorPrimary"
             android:src="@drawable/can"
             tools:ignore="ContentDescription" />
@@ -22,7 +22,6 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:layout_marginBottom="2dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
@@ -41,8 +40,6 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
@@ -60,8 +57,6 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
@@ -79,8 +74,6 @@
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
@@ -100,11 +93,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:spinnerMode="dropdown"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="2dp"
+            android:layout_marginLeft="2dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="2dp"
-            android:padding="20dp" />
+            android:padding="20dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="10dp" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_signup"
@@ -112,9 +105,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:padding="20dp"
             android:text="@string/create_account" />
 

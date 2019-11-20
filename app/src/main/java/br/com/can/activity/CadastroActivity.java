@@ -14,10 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.can.R;
+import br.com.can.entity.Usuario;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
-public class CadastroActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class CadastroActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+
+    protected Realm realm;
 
     @BindView(R.id.input_name)
     EditText nome;
@@ -31,6 +35,10 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
     Button botaoCadastrar;
     @BindView(R.id.link_login)
     TextView loginLink;
+    @BindView(R.id.perfis)
+    Spinner perfis;
+
+    private Usuario novoUsuario;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,7 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
                 R.array.perfis, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        this.criaBancoRealm();
     }
 
     /**
@@ -74,16 +83,24 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage(getString(R.string.criando_conta));
         progressDialog.show();
-        String name = nome.getText().toString();
-        String email = this.email.getText().toString();
-        String password = senha.getText().toString();
-        String reEnterPassword = repetirSenha.getText().toString();
 
+        this.novoUsuario = new Usuario();
+//        String nome = this.nome.getText().toString();
+//        String email = this.email.getText().toString();
+//        String senha = this.senha.getText().toString();
+//        String repetirSenha = this.repetirSenha.getText().toString();
+//        String perfil = this.perfis.getSelectedItem().toString();
         // TODO: Implement your own novoCadastro logic here.
+
+        this.novoUsuario.setNome(this.nome.getText().toString());
+        this.novoUsuario.setEmail(this.email.getText().toString());
+        this.novoUsuario.setSenha(this.senha.getText().toString());
+        this.novoUsuario.setTipoUsuario(this.perfis.getSelectedItem().toString());
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
+                        salvar();
                         // On complete call either cadastroComSucesso or cadastroComFalha
                         // depending on success
                         cadastroComSucesso();
@@ -94,9 +111,10 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void cadastroComSucesso() {
+        Toast.makeText(getBaseContext(), getString(R.string.cadastro_sucesso), Toast.LENGTH_LONG).show();
         botaoCadastrar.setEnabled(true);
         setResult(RESULT_OK, null);
-        finish();
+        this.onBackPressedComBundle();
     }
 
     public void cadastroComFalha() {
@@ -162,11 +180,29 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> arg0, View arg1, int position,long id) {
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> arg0) {
+    }
+
+    //Salva o objeto no Banco,
+    public void salvar() {
+        this.realm.beginTransaction();
+        this.realm.insertOrUpdate(this.novoUsuario);
+        this.realm.commitTransaction();
+    }
+
+    public void onBackPressedComBundle(){
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("resultado", this.novoUsuario);
+        //Chama a próxima Activity já com o objeto populado.
+        Intent intent = new Intent(CadastroActivity.this, HomeActivity.class);
+        intent.putExtra("usuario", bundle);
+        startActivity(intent);
+        overridePendingTransition(R.anim.left_animation, R.anim.rigth_animation);
+        this.finish();
     }
 
     @Override
@@ -174,7 +210,13 @@ public class CadastroActivity extends AppCompatActivity implements AdapterView.O
         super.onBackPressed();
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.left_animation, R.anim.rigth_animation);
         this.finish();
+    }
+
+    public void criaBancoRealm() {
+        Realm.init(this);
+        realm = Realm.getDefaultInstance();
     }
 
 }

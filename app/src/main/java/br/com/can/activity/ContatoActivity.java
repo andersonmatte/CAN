@@ -42,7 +42,7 @@ public class ContatoActivity extends AppCompatActivity {
                 .addEmail("can@outlook.com")
                 .addFacebook(URL_FACEBOOK_CAN)
                 .addTwitter("https://twitter.com/login?lang=pt")
-                .addYoutube("AbFiU2lvKwg")
+                .addYoutube("https://www.youtube.com/watch?v=AbFiU2IvKwg")
                 .addInstagram("https://www.instagram.com/?hl=pt-br")
                 .addItem(getCopyRightsElement())
                 .create();
@@ -87,8 +87,9 @@ public class ContatoActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, ClubeActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.left_animation, R.anim.rigth_animation);
         this.finish();
     }
 

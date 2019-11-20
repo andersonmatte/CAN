@@ -64,6 +64,7 @@ public class ClubeActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.left_animation, R.anim.rigth_animation);
         this.finish();
     }
 

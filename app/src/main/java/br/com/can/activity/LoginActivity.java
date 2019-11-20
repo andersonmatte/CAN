@@ -11,10 +11,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import br.com.can.R;
+import br.com.can.entity.Usuario;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 
 public class LoginActivity extends AppCompatActivity {
+
+    protected Realm realm;
 
     private static final int REQUEST = 0;
 
@@ -26,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     Button botaoLogin;
     @BindView(R.id.link_cadastro)
     TextView cadastro;
+
+    private Usuario loginUsuario = new Usuario();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         redirecionaCadastro();
+        this.criaBancoRealm();
     }
 
     /**
@@ -73,20 +80,54 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage(getString(R.string.autenticando));
         progressDialog.show();
 
-        String email = this.email.getText().toString();
-        String password = senha.getText().toString();
+//        String email = this.email.getText().toString();
+//        String senha = this.senha.getText().toString();
 
         // TODO: Implement your own authentication logic here.
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
+                        logar();
                         // On complete call either loginSucesso or loginFalha
-                        loginSucesso();
+                        //loginSucesso();
                         // loginFalha();
                         progressDialog.dismiss();
                     }
                 }, 3000);
+    }
+
+    private void logar() {
+        Usuario usuario = this.realm.where(Usuario.class).equalTo("email", this.email.getText().toString())
+                .equalTo("senha", this.senha.getText().toString())
+                .findFirst();
+        this.populaLoginUsuario(usuario);
+    }
+
+    // TODO Rever melhor forma de fazer isso, estava dando erro de RealmProxy$ na hora do set de objeto, por isso essa gambiarra!
+    private void populaLoginUsuario(Usuario usuario) {
+        if (usuario != null) {
+            this.loginUsuario.setId(usuario.getId() != 0 ? usuario.getId() : -1);
+            this.loginUsuario.setNome(usuario.getNome() != null ? usuario.getNome() : "");
+            this.loginUsuario.setCpf(usuario.getCpf() != 0 ? usuario.getCpf() : -1);
+            this.loginUsuario.setEndereco(usuario.getEndereco() != null ? usuario.getEndereco() : "");
+            this.loginUsuario.setEmail(usuario.getEmail() != null ? usuario.getEmail() : "");
+            this.loginUsuario.setTipoUsuario(usuario.getTipoUsuario() != null ? usuario.getTipoUsuario() : "");
+            this.loginUsuario.setUsuario(usuario.getUsuario() != null ? usuario.getUsuario() : "");
+            this.loginUsuario.setSenha(usuario.getSenha() != null ? usuario.getSenha() : "");
+            this.onBackPressedComBundle();
+        }
+    }
+
+    public void onBackPressedComBundle() {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("resultado", this.loginUsuario);
+        //Chama a próxima Activity já com o objeto populado.
+        Intent intent = new Intent(this, HomeActivity.class);
+        intent.putExtra("usuario", bundle);
+        startActivity(intent);
+        overridePendingTransition(R.anim.left_animation, R.anim.rigth_animation);
+        this.finish();
     }
 
     @Override
@@ -151,7 +192,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onBackPressed();
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.left_animation, R.anim.rigth_animation);
         this.finish();
+    }
+
+    public void criaBancoRealm() {
+        Realm.init(this);
+        realm = Realm.getDefaultInstance();
     }
 
 }

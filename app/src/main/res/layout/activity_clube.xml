@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    tools:context=".activity.ClubeActivity">
     <LinearLayout
         android:id="@+id/cabecalho_home"
         android:layout_width="match_parent"
@@ -71,6 +71,5 @@
         android:layout_below="@+id/contatos"
         android:layout_gravity="center"
         android:background="@color/base" />
-
 
 </RelativeLayout>

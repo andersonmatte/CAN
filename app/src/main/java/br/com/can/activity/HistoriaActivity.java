@@ -18,8 +18,9 @@ public class HistoriaActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, ClubeActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.left_animation, R.anim.rigth_animation);
         this.finish();
     }
 
